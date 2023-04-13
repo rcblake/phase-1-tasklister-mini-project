@@ -1,32 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("form").addEventListener("submit",(e) => {e.preventDefault()
-    createTask(e.target.newTaskDescription.value,e.target.newTaskPriority.value)
+  const form = document.querySelector("form")
+    form.addEventListener("submit",e => 
+    {e.preventDefault()
+    createTask(e.target.newTaskDescription.value,e.target.newTaskPriority.value,e.target.newTaskDueDate.value)
+    form.reset()
   })
 });
 
-function createTask(task,taskPriority) {
-  const p = document.createElement("p")
+// let's add toggle to the form in CSS (only available on className)
+// make task
+
+function createTask(task,taskPriority,taskDueDate) {
+  const li = document.createElement("li")
+  const pTask = document.createElement("p")
+  const pPrio = document.createElement("p")
+  const date = document.createElement("input")
   const checkBox = document.createElement("input")
-  const editButton = document.createElement("button")
+  const removeButton = document.createElement("button")
+
+  li.className = "newTaskListing"
+
+  pTask.innerText = task
+  pTask.name = "taskDescription" //is this being used/functional?
+  pTask.className = taskPriority
+  pTask.style.color = taskPriority //change colors to numbers and move into style
+ 
+  pPrio.className = "priorityOption"
+
+  
+  date.type = "date"
+  date.value = taskDueDate
+
+  removeButton.innerText = "\u2716"
+  removeButton.className = "removeButton"
+
   checkBox.type = "checkbox"
-  p.innerText = task
-  p.name = "taskDescription"
-  p.className = taskPriority
-  editButton.className = "taskEditButton"
-  editButton.innerText = "Edit"
-  editButton.addEventListener("click",(e) => {editTask(p,taskPriority)})
 
-  p.prepend(checkBox)
-  p.append(editButton)
-  document.getElementById("tasks").appendChild(p)
+  pTask.addEventListener("dblclick",(e) => {editTask(pTask,taskPriority,taskDueDate)})
+  removeButton.addEventListener("click",(e) => {removeTask(li)})
 
-  console.log(`Task: ${task} Priority: ${taskPriority}`)
+  pTask.prepend(checkBox) // add strikethrough in CSS
+  pTask.append(date,removeButton) 
+  li.appendChild(pTask)
+  document.getElementById("tasks").appendChild(li)
+
+  console.log(`Task: ${task} Color: ${taskPriority} Due:${taskDueDate}`)
 }
 
-function editTask(oldTask,oldTaskPriority) {
-  let newTask = prompt("Enter Edit");
-  if (newTask !== null) { 
-    oldTask.remove();
-    createTask(newTask, oldTaskPriority)
+function editTask(oldTask,oldTaskPriority,oldTaskDueDate) {
+  let newTaskDescription = prompt("Enter Edit");
+  if (newTaskDescription !== null) { 
+    createTask(newTaskDescription, oldTaskPriority,oldTaskDueDate);
+    oldTask.remove()
   }
 }
+
+function removeTask(taskListing) {
+  taskListing.remove()
+}
+
+
