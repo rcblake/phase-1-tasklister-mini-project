@@ -21,13 +21,12 @@ function createTask(task,taskPriority,taskDueDate) {
   li.className = "newTaskListing"
 
   pTask.innerText = task
-  pTask.name = "taskDescription" //is this being used/functional?
-  pTask.className = taskPriority
-  pTask.style.color = taskPriority //change colors to numbers and move into style
+  //pTask.name = "taskDescription" //is this being used/functional?
+  //pTask.className = taskPriority
+  pTask.style.color = taskPriority //change colors to numbers and move into style, remove from js and html
  
   pPrio.className = "priorityOption"
 
-  
   date.type = "date"
   date.value = taskDueDate
 
@@ -39,9 +38,9 @@ function createTask(task,taskPriority,taskDueDate) {
   pTask.addEventListener("dblclick",(e) => {editTask(pTask,taskPriority,taskDueDate)})
   removeButton.addEventListener("click",(e) => {removeTask(li)})
 
-  pTask.prepend(checkBox) // add strikethrough in CSS
-  pTask.append(date,removeButton) 
-  li.appendChild(pTask)
+  //pTask.prepend(checkBox) // add strikethrough in CSS
+  //pTask.append(date,removeButton) 
+  li.append(checkBox,pTask,pPrio,date,removeButton)
   document.getElementById("tasks").appendChild(li)
 
   console.log(`Task: ${task} Color: ${taskPriority} Due:${taskDueDate}`)

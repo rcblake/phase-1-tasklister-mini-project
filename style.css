@@ -22,20 +22,30 @@ button {
   flex-direction: column;
   border: 1px solid #333;
   background: rgba(255, 255, 255, 0.3);
-  padding: 15px 20px 18px 18px;
+  padding: 0px ;
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
 }
 
 #list {
-  margin: 10px;
+  margin: 5px;
   border: 1px solid #333;
   background: rgba(255, 255, 255, 0.75);
-  padding: 15px 20px 18px 18px;
+  padding: 5px 10px 5px 10px;
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
 }
 
 .newTaskListing {
   list-style-type: none;
+  display: inline-flex;
+  margin-inline: 5px;
+}
+
+ol #{
+  padding: 0px;
+}
+
+p, input {
+  margin: 0px
 }
